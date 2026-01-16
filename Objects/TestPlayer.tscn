@@ -6,9 +6,9 @@
 resource_name = "TestPlayer"
 script/source = "extends CharacterBody2D
 
-var Hitpoints = 100
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
+@export var Hitpoints = 100
+@export var speed = 300.0
+@export var jumpVelocity = -400.0
 
 
 func _physics_process(delta: float) -> void:
@@ -18,15 +18,15 @@ func _physics_process(delta: float) -> void:
 
 	# Handle jump.
 	if Input.is_action_just_pressed(\"ui_up\") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		velocity.y = jumpVelocity
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
 	if direction:
-		velocity.x = direction * SPEED
+		velocity.x = direction * speed
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
 
 	move_and_slide()
 
@@ -41,7 +41,8 @@ size = Vector2(125, 125)
 script/source = "extends Area2D
 var _overlapping 
 var _canAttack = true
-const ATTACKCOOLDOWN = 1
+@export var attackCooldown = 1
+@export var damage = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -60,9 +61,9 @@ func attack() -> void:
 		_overlapping = get_overlapping_bodies()
 		for body in _overlapping:
 			#print(body)
-			body.takeDamage(10)
+			body.takeDamage(damage)
 			
-		get_tree().create_timer(ATTACKCOOLDOWN).timeout.connect(func(): _canAttack = true)
+		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]

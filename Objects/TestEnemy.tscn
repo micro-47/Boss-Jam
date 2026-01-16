@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ipefcpx05vtq"]
+[gd_scene load_steps=4 format=3 uid="uid://ipefcpx05vtq"]
 
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://icon.svg" id="1_eppil"]
 [ext_resource type="Script" uid="uid://cl26w573h8352" path="res://Objects/character_body_2d.gd" id="1_t11jd"]
-[ext_resource type="Script" uid="uid://ctgt7spqvqwrc" path="res://Objects/hurt_box.gd" id="2_s2am3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2am3"]
 size = Vector2(125, 125)
@@ -18,12 +17,3 @@ texture = ExtResource("1_eppil")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_s2am3")
-
-[node name="HurtBox" type="Area2D" parent="CharacterBody2D" groups=["EnemyHurtBox"]]
-script = ExtResource("2_s2am3")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/HurtBox"]
-shape = SubResource("RectangleShape2D_s2am3")
-
-[connection signal="area_entered" from="CharacterBody2D/HurtBox" to="CharacterBody2D/HurtBox" method="_on_area_entered"]
-[connection signal="body_entered" from="CharacterBody2D/HurtBox" to="CharacterBody2D/HurtBox" method="_on_body_entered"]
