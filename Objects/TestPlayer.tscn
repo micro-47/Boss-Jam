@@ -6,7 +6,7 @@
 resource_name = "TestPlayer"
 script/source = "extends CharacterBody2D
 
-
+var Hitpoints = 100
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -29,6 +29,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func takeDamage(damage: float) -> void:
+	pass
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
@@ -36,20 +39,30 @@ size = Vector2(125, 125)
 
 [sub_resource type="GDScript" id="GDScript_4am36"]
 script/source = "extends Area2D
-
+var _overlapping 
+var _canAttack = true
+const ATTACKCOOLDOWN = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	monitorable = false
+	#pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-	
-func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"Enemy\"):
-		print (\"hit\")
+# Called every frame. 'delta' is the elapsed time since the previous 	 frame.
+func _physics_process(_delta: float) -> void:
+	attack()
+
+func attack() -> void:
+	if Input.is_action_just_pressed(\"ui_accept\") and _canAttack:
+		_canAttack = false
+		
+		_overlapping = get_overlapping_bodies()
+		for body in _overlapping:
+			#print(body)
+			body.takeDamage(10)
+			
+		get_tree().create_timer(ATTACKCOOLDOWN).timeout.connect(func(): _canAttack = true)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]
@@ -57,7 +70,7 @@ size = Vector2(125, 125)
 
 [node name="TestPlayer" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["Player"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHitBox"]]
 script = SubResource("GDScript_2wo74")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
@@ -68,7 +81,7 @@ shape = SubResource("RectangleShape2D_pgrwc")
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 texture = ExtResource("1_smd5i")
 
-[node name="Hitbox" type="Area2D" parent="CharacterBody2D"]
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
 position = Vector2(84, 7)
 rotation = 0.71733
 scale = Vector2(0.2, 1)
@@ -79,5 +92,3 @@ texture = ExtResource("1_smd5i")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
 shape = SubResource("RectangleShape2D_4am36")
-
-[connection signal="body_entered" from="CharacterBody2D/Hitbox" to="CharacterBody2D/Hitbox" method="_on_body_entered"]

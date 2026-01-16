@@ -17,8 +17,10 @@ config/icon="res://icon.svg"
 
 [global_group]
 
-Enemy=""
-Player=""
+EnemyHurtBox=""
+PlayerHurtBox=""
+EnemyHitBox=""
+PlayerHitBox=""
 
 [input]
 
