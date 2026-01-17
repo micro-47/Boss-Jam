@@ -6,7 +6,7 @@
 resource_name = "TestPlayer"
 script/source = "extends CharacterBody2D
 
-@export var healthBar: Node
+@onready var healthBar = $HealthBar #THIS BROKEN 
 @export var speed = 300.0
 @export var jumpVelocity = -400.0
 
@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func takeDamage(damage: float) -> void:
-	pass
+	#pass
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
@@ -73,9 +73,10 @@ size = Vector2(125, 125)
 
 [node name="TestPlayer" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("healthBar") groups=["PlayerHitBox"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHitBox"]]
 script = SubResource("GDScript_2wo74")
-healthBar = NodePath("HealthBar")
+speed = null
+jumpVelocity = null
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 
@@ -102,4 +103,3 @@ offset_left = -560.0
 offset_top = -315.0
 offset_right = -320.0
 offset_bottom = -288.0
-value = 100.0
