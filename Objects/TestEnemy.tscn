@@ -8,8 +8,9 @@ size = Vector2(125, 125)
 
 [node name="TestEnemy" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["EnemyHurtBox"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["EnemyHurtBox"]]
 script = ExtResource("1_t11jd")
+_healthBar = NodePath("HealthBar")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 modulate = Color(0.9372451, 0, 0.13671866, 1)
@@ -17,3 +18,10 @@ texture = ExtResource("1_eppil")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_s2am3")
+
+[node name="HealthBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -122.0
+offset_top = -109.0
+offset_right = 118.0
+offset_bottom = -82.0
+value = 100.0
