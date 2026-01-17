@@ -34,6 +34,13 @@ func _physics_process(delta: float) -> void:
 
 func takeDamage(damage: float) -> void:
 	pass
+
+func weapon1() -> void: #fast but low damage weapon?
+	speed = 500.0
+	jumpVelocity = -500.0
+	$Hitbox.damage = 50
+	print(\"weapon 1 used\")
+	
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
@@ -64,6 +71,7 @@ func attack() -> void:
 		for body in _overlapping:
 			#print(body)
 			body.takeDamage(damage)
+			get_parent().weapon1()
 			
 		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
