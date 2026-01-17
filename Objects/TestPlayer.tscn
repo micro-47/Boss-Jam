@@ -66,12 +66,12 @@ func _physics_process(_delta: float) -> void:
 func attack() -> void:
 	if Input.is_action_just_pressed(\"ui_accept\") and _canAttack:
 		_canAttack = false
-		
 		_overlapping = get_overlapping_bodies()
 		for body in _overlapping:
-			#print(body)
-			body.takeDamage(damage)
-			get_parent().weapon1()
+			if body.is_in_group(\"EnemyHurtBox\"):
+				#print(body)
+				body.takeDamage(damage)
+				get_parent().weapon1()
 			
 		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
