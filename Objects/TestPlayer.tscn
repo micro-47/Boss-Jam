@@ -86,16 +86,11 @@ func attack() -> void:
 		_overlapping = get_overlapping_bodies()
 		for body in _overlapping:
 			#print(body)
-			body.takeDamage(damage)
 			get_parent().weaponArm()
 			if body.is_in_group(\"EnemyHurtBox\"):
 				#print(body)
 				body.takeDamage(damage)
-<<<<<<< Updated upstream
 				#get_parent().weapon1() #testing
-=======
-				get_parent().weapon1()
->>>>>>> Stashed changes
 			
 		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
