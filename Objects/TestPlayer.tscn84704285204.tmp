@@ -1,0 +1,143 @@
+[gd_scene load_steps=7 format=3 uid="uid://duscq6gp2h3k2"]
+
+[ext_resource type="Texture2D" uid="uid://d12u2d2u74jso" path="res://baby crawling.jpg" id="1_ighfd"]
+[ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://icon.svg" id="1_smd5i"]
+
+[sub_resource type="GDScript" id="GDScript_2wo74"]
+resource_name = "TestPlayer"
+script/source = "extends CharacterBody2D
+
+@export var _healthBar: Node
+@export var speed = 300.0
+@export var jumpVelocity = -400.0
+
+func _ready() -> void:
+	pass
+
+func _physics_process(delta: float) -> void:
+	# Add the gravity.
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Handle jump.
+	if Input.is_action_just_pressed(\"ui_up\") and is_on_floor():
+		velocity.y = jumpVelocity
+
+	# Get the input direction and handle the movement/deceleration.
+	# As good practice, you should replace UI actions with custom gameplay actions.
+	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
+	if direction:
+		velocity.x = direction * speed
+	else:
+		velocity.x = move_toward(velocity.x, 0, speed)
+	
+	move_and_slide()
+	
+	#flipping the character when moving one way
+	if Input.is_action_pressed(\"ui_right\"):
+		$Sprite2D.flip_h = false
+	elif Input.is_action_pressed(\"ui_left\"):
+		$Sprite2D.flip_h = true
+
+
+func takeDamage(damage: float) -> void:
+	pass
+
+func weaponArm() -> void: #arm (short range, fastest)
+	speed = 500.0
+	$Hitbox.damage = 50
+	print(\"Arm Weapon Enabled\")
+	
+func weaponSword() -> void: #sword (short-mid range, slow speed)
+	speed = 150.0
+	$Hitbox.damage = 50
+	print(\"Sword Weapon Enabled\")
+	
+func weaponPicoGun() -> void: #gun (long range, medium speed)
+	speed = 300.0
+	$Hitbox.damage = 50
+	print(\"PicoGun Weapon Enabled\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
+size = Vector2(125, 125)
+
+[sub_resource type="GDScript" id="GDScript_4am36"]
+script/source = "extends Area2D
+var _overlapping 
+var _canAttack = true
+@export var attackCooldown = 1
+@export var damage = 10
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	monitorable = false
+	#pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous 	 frame.
+func _physics_process(_delta: float) -> void:
+	attack()
+
+func attack() -> void:
+	if Input.is_action_just_pressed(\"ui_accept\") and _canAttack:
+		_canAttack = false
+		
+		_overlapping = get_overlapping_bodies()
+		for body in _overlapping:
+			#print(body)
+			body.takeDamage(damage)
+			get_parent().weaponArm()
+			if body.is_in_group(\"EnemyHurtBox\"):
+				#print(body)
+				body.takeDamage(damage)
+				#get_parent().weapon1() #testing
+				get_parent().weapon1()
+				
+		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]
+size = Vector2(125, 125)
+
+[node name="TestPlayer" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
+script = SubResource("GDScript_2wo74")
+_healthBar = NodePath("PlayerHealthBar")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_pgrwc")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(1.3750029, 3.8146973e-06)
+scale = Vector2(0.104375005, 0.19682541)
+texture = ExtResource("1_ighfd")
+
+[node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
+position = Vector2(84, 7)
+rotation = 0.71733
+scale = Vector2(0.2, 1)
+script = SubResource("GDScript_4am36")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/Hitbox"]
+texture = ExtResource("1_smd5i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
+shape = SubResource("RectangleShape2D_4am36")
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -560.0
+offset_top = -315.0
+offset_right = -320.0
+offset_bottom = -288.0
+value = 100.0
+
+[node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = 327.0
+offset_top = -317.0
+offset_right = 567.0
+offset_bottom = -290.0
+value = 100.0

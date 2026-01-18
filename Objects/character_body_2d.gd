@@ -1,5 +1,6 @@
 extends CharacterBody2D
 @onready var _healthBar = get_tree().get_nodes_in_group("PlayerHurtBox")
+
 const ATTACKS = ["spawns", "tentacles"]
 
 func _ready() -> void:
