@@ -10,6 +10,7 @@ script/source = "extends CharacterBody2D
 @export var _healthBar: Node
 @export var speed = 300.0
 @export var jumpVelocity = -400.0
+var facing_right := true  # assume starting facing right FOR THE FACING THING IGNORE
 
 func _ready() -> void:
 	pass
@@ -34,11 +35,13 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	#flipping the character when moving one way
-	if Input.is_action_pressed(\"ui_right\"):
+	if Input.is_action_pressed(\"ui_right\") and not facing_right:
 		$Sprite2D.flip_h = false
-	elif Input.is_action_pressed(\"ui_left\"):
+		facing_right=true
+	elif Input.is_action_pressed(\"ui_left\") and facing_right:
 		$Sprite2D.flip_h = true
-
+		facing_right = false
+		scale.x = -1
 
 func takeDamage(damage: float) -> void:
 	pass
