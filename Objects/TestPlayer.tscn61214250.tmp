@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://duscq6gp2h3k2"]
+[gd_scene load_steps=6 format=3 uid="uid://duscq6gp2h3k2"]
 
-[ext_resource type="Texture2D" uid="uid://d12u2d2u74jso" path="res://baby crawling.jpg" id="1_ighfd"]
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://icon.svg" id="1_smd5i"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
@@ -32,13 +31,6 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, speed)
 	
 	move_and_slide()
-	
-	#flipping the character when moving one way
-	if Input.is_action_pressed(\"ui_right\"):
-		$Sprite2D.flip_h = false
-	elif Input.is_action_pressed(\"ui_left\"):
-		$Sprite2D.flip_h = true
-
 
 func takeDamage(damage: float) -> void:
 	pass
@@ -91,7 +83,7 @@ func attack() -> void:
 			if body.is_in_group(\"EnemyHurtBox\"):
 				#print(body)
 				body.takeDamage(damage)
-				#get_parent().weapon1() #testing
+				get_parent().weapon1()
 			
 		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
@@ -110,9 +102,7 @@ script = SubResource("GDScript_2wo74")
 shape = SubResource("RectangleShape2D_pgrwc")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(1.3750029, 3.8146973e-06)
-scale = Vector2(0.104375005, 0.19682541)
-texture = ExtResource("1_ighfd")
+texture = ExtResource("1_smd5i")
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
 position = Vector2(84, 7)
