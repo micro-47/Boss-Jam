@@ -1,13 +1,25 @@
 extends CharacterBody2D
-@onready var _health = get_tree().get_nodes_in_group("PlayerHurtBox")[0].get_node("BossHealthBar").value #NOTE: high chance of breaking: will break if more nodes are added to playerhurtbox group
-
-const ATTACKS = ["spawns", "tentacles"]
+@onready var _healthBar = get_tree().get_nodes_in_group("PlayerHurtBox")[0].get_node("BossHealthBar") #NOTE: high chance of breaking: will break if more nodes are added to playerhurtbox group
+var ATTACKS: Array[Callable] = [Callable(self, "spawn"), Callable(self, "tentacle")]
 
 func _ready() -> void:
 	pass
 
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("ui_select"):
+		attack()
 func takeDamage(damage: float) -> void:
-	print(_health)
-	#print("Hitpoints before %s" %_health)
-	#_health -= damage
-	#print("Hitpoints after %s" %_health)
+	print("Hitpoints before %s" %_healthBar.value)
+	_healthBar.value -= damage
+	print("Hitpoints after %s" %_healthBar.value)
+
+func attack() -> void: 
+	var currentAttack = ATTACKS.pick_random()
+	#print(currentAttack)
+	currentAttack.call()
+
+func spawn() -> void:
+	print ("spawns")
+	
+func tentacle() -> void:
+	print ("tentacles")
