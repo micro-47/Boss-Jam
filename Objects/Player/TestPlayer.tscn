@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://duscq6gp2h3k2"]
 
-[ext_resource type="Texture2D" uid="uid://d12u2d2u74jso" path="res://baby crawling.jpg" id="1_ighfd"]
+[ext_resource type="Texture2D" uid="uid://d12u2d2u74jso" path="res://Assets/baby crawling.jpg" id="1_ighfd"]
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="1_smd5i"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
