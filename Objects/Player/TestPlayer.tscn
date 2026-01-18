@@ -46,17 +46,17 @@ func takeDamage(damage: float) -> void:
 func weaponArm() -> void: #arm (short range, fastest)
 	speed = 500.0
 	$Hitbox.damage = 50
-	print(\"Arm Weapon Enabled\")
+	#print(\"Arm Weapon Enabled\")
 	
 func weaponSword() -> void: #sword (short-mid range, slow speed)
 	speed = 150.0
 	$Hitbox.damage = 50
-	print(\"Sword Weapon Enabled\")
+	#print(\"Sword Weapon Enabled\")
 	
 func weaponPicoGun() -> void: #gun (long range, medium speed)
 	speed = 300.0
 	$Hitbox.damage = 50
-	print(\"PicoGun Weapon Enabled\")
+	#print(\"PicoGun Weapon Enabled\")
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
