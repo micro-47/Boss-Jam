@@ -11,6 +11,8 @@ script/source = "extends CharacterBody2D
 @export var speed = 300.0
 @export var jumpVelocity = -400.0
 var facing_right := true  # assume starting facing right FOR THE FACING THING IGNORE
+@onready var damageCooldown = $DamageCooldown
+var canDamaged = true
 
 func _ready() -> void:
 	pass
@@ -43,7 +45,10 @@ func _physics_process(delta: float) -> void:
 		facing_right = false
 
 func takeDamage(damage: float) -> void:
-	print(\"Damage is %s\", damage)
+	if canDamaged:
+		print(\"Damage is %s\", damage)
+		canDamaged=false
+		damageCooldown.start(1) #How many seconds it can't take damage for 
 
 func weaponArm() -> void: #arm (short range, fastest)
 	speed = 500.0
@@ -59,6 +64,10 @@ func weaponPicoGun() -> void: #gun (long range, medium speed)
 	speed = 300.0
 	$Hitbox.damage = 50
 	#print(\"PicoGun Weapon Enabled\")
+
+
+func _on_damage_cooldown_timeout() -> void:
+	canDamaged=true
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
@@ -142,3 +151,7 @@ offset_top = -315.0
 offset_right = -320.0
 offset_bottom = -288.0
 value = 100.0
+
+[node name="DamageCooldown" type="Timer" parent="CharacterBody2D"]
+
+[connection signal="timeout" from="CharacterBody2D/DamageCooldown" to="CharacterBody2D" method="_on_damage_cooldown_timeout"]
