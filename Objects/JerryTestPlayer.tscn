@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://duscq6gp2h3k2"]
+[gd_scene load_steps=12 format=3 uid="uid://bapdrhputjjg8"]
 
-[ext_resource type="Texture2D" uid="uid://d12u2d2u74jso" path="res://Assets/baby crawling.jpg" id="1_ighfd"]
-[ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="1_smd5i"]
+[ext_resource type="Texture2D" uid="uid://b4cni2go6c4e6" path="res://Assets/Animation/618129771_1506481350429325_5218705656021625225_n.png" id="1_dawib"]
+[ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="2_g7d7e"]
+[ext_resource type="Texture2D" uid="uid://dixhx6emffp02" path="res://Assets/Animation/619512913_4389400557967277_5756769429655172627_n.png" id="3_ea4ec"]
+[ext_resource type="Texture2D" uid="uid://ccfvdaca83h1u" path="res://Assets/Animation/617507898_1218079943805566_7168950650261585613_n.png" id="4_06qf3"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
 resource_name = "TestPlayer"
@@ -79,6 +81,7 @@ var _overlapping
 var _canAttack = true
 @export var attackCooldown = 1
 @export var damage = 10
+@onready var animationPlayer = $AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -101,13 +104,52 @@ func attack() -> void:
 			if body.is_in_group(\"EnemyHurtBox\"):
 				#print(body)
 				body.takeDamage(damage)
+				
 				#get_parent().weapon1() #testing
 			
+		animationPlayer.play(\"punch\")
 		get_tree().create_timer(attackCooldown).timeout.connect(func(): _canAttack = true)
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]
 size = Vector2(125, 125)
+
+[sub_resource type="Animation" id="Animation_32e85"]
+resource_name = "punch"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("1_dawib"), ExtResource("3_ea4ec"), ExtResource("4_06qf3"), ExtResource("3_ea4ec"), ExtResource("1_dawib")]
+}
+
+[sub_resource type="Animation" id="Animation_5l7pb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dawib")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ea4ec"]
+_data = {
+&"RESET": SubResource("Animation_5l7pb"),
+&"punch": SubResource("Animation_32e85")
+}
 
 [node name="TestPlayer" type="Node2D"]
 
@@ -122,9 +164,8 @@ rotation_smoothing_enabled = true
 shape = SubResource("RectangleShape2D_pgrwc")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-position = Vector2(1.375, 3.8147e-06)
-scale = Vector2(0.104375, 0.196825)
-texture = ExtResource("1_ighfd")
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_dawib")
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
 position = Vector2(84, 7)
@@ -133,10 +174,17 @@ scale = Vector2(0.2, 1)
 script = SubResource("GDScript_4am36")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/Hitbox"]
-texture = ExtResource("1_smd5i")
+visible = false
+texture = ExtResource("2_g7d7e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
 shape = SubResource("RectangleShape2D_4am36")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/Hitbox"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_ea4ec")
+}
 
 [node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D"]
 offset_left = 327.0

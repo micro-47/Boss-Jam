@@ -1,17 +1,17 @@
 [gd_scene load_steps=4 format=4 uid="uid://d1yov8ydhmowh"]
 
 [ext_resource type="PackedScene" uid="uid://ipefcpx05vtq" path="res://Objects/Enemy/TestEnemy.tscn" id="1_npk3l"]
-[ext_resource type="PackedScene" uid="uid://duscq6gp2h3k2" path="res://Objects/Player/TestPlayer.tscn" id="2_peiry"]
 [ext_resource type="TileSet" uid="uid://bnjvuhkm14ego" path="res://Assets/TestTileSet.tres" id="3_1syqj"]
+[ext_resource type="PackedScene" uid="uid://bapdrhputjjg8" path="res://Objects/JerryTestPlayer.tscn" id="3_npk3l"]
 
 [node name="JerryTest" type="Node2D"]
 
 [node name="TestEnemy" parent="." instance=ExtResource("1_npk3l")]
 position = Vector2(105, 85)
 
-[node name="TestPlayer" parent="." instance=ExtResource("2_peiry")]
-position = Vector2(-161, 52)
-
 [node name="Ground" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AADt/woAAAACAAAAAADu/woAAAACAAAAAADv/woAAAACAAAAAADw/woAAAACAAAAAADx/woAAAACAAAAAADy/woAAAACAAAAAADz/woAAAACAAAAAAD0/woAAAACAAAAAAD1/woAAAACAAAAAAD2/woAAAACAAAAAAD3/woAAAACAAAAAAD4/woAAAACAAAAAAD5/woAAAACAAAAAAD6/woAAAACAAAAAAD7/woAAAACAAAAAAD8/woAAAACAAAAAAD9/woAAAACAAAAAAD+/woAAAACAAAAAAD//woAAAACAAAAAAAAAAoAAAACAAAAAAABAAoAAAACAAAAAAACAAoAAAACAAAAAAADAAoAAAACAAAAAAAEAAoAAAACAAAAAAAFAAoAAAACAAAAAAAGAAoAAAACAAAAAAAHAAoAAAACAAAAAAAIAAoAAAACAAAAAAAJAAoAAAACAAAAAAAKAAoAAAACAAAAAAALAAoAAAACAAAAAAAMAAoAAAACAAAAAAANAAoAAAACAAAAAAAOAAoAAAACAAAAAAAPAAoAAAACAAAAAAAQAAoAAAACAAAAAAARAAoAAAACAAAAAAASAAoAAAACAAAAAAATAAoAAAACAAAAAAAUAAoAAAACAAAAAAAVAAoAAAACAAAAAAAWAAoAAAACAAAAAAAXAAoAAAACAAAAAAAYAAoAAAACAAAAAAAZAAoAAAACAAAAAAAaAAoAAAACAAAAAAAbAAoAAAACAAAAAAAcAAoAAAACAAAAAAAdAAoAAAACAAAAAAAeAAoAAAACAAAAAAAfAAoAAAACAAAAAAAgAAoAAAACAAAAAAAhAAoAAAACAAAAAAAiAAoAAAACAAAAAADt//z/AAACAAAAAADt//3/AAACAAAAAADt//7/AAACAAAAAADt////AAACAAAAAADt/wAAAAACAAAAAADt/wEAAAACAAAAAADt/wIAAAACAAAAAADt/wMAAAACAAAAAADt/wQAAAACAAAAAADt/wUAAAACAAAAAADt/wYAAAACAAAAAADt/wcAAAACAAAAAADt/wgAAAACAAAAAADt/wkAAAACAAAAAAA=")
 tile_set = ExtResource("3_1syqj")
+
+[node name="TestPlayer" parent="." instance=ExtResource("3_npk3l")]
+position = Vector2(-117, 52)
