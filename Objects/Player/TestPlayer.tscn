@@ -35,13 +35,12 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 	
 	#flipping the character when moving one way
-	if Input.is_action_pressed(\"ui_right\") and not facing_right:
-		$Sprite2D.flip_h = false
+	if Input.is_action_pressed(\"ui_right\"):
+		$Sprite2D.flip_h = false #flips the baby
 		facing_right=true
-	elif Input.is_action_pressed(\"ui_left\") and facing_right:
-		$Sprite2D.flip_h = true
+	elif Input.is_action_pressed(\"ui_left\"):
+		$Sprite2D.flip_h = true #flips the baby
 		facing_right = false
-		scale.x = -1
 
 func takeDamage(damage: float) -> void:
 	print(\"Damage is %s\", damage)
@@ -108,6 +107,7 @@ script = SubResource("GDScript_2wo74")
 _healthBar = NodePath("PlayerHealthBar")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+rotation_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_pgrwc")
@@ -129,16 +129,16 @@ texture = ExtResource("1_smd5i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
 shape = SubResource("RectangleShape2D_4am36")
 
-[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D"]
-offset_left = -560.0
-offset_top = -315.0
-offset_right = -320.0
-offset_bottom = -288.0
-value = 100.0
-
 [node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D"]
 offset_left = 327.0
 offset_top = -317.0
 offset_right = 567.0
 offset_bottom = -290.0
+value = 100.0
+
+[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D"]
+offset_left = -560.0
+offset_top = -315.0
+offset_right = -320.0
+offset_bottom = -288.0
 value = 100.0
