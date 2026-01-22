@@ -40,11 +40,11 @@ func _physics_process(delta: float) -> void:
 	
 	#flipping the character when moving one way
 	if Input.is_action_pressed(\"ui_right\"):
-		$Sprite2D.flip_h = false #flips the baby
-		facing_right=true
-	elif Input.is_action_pressed(\"ui_left\"):
 		$Sprite2D.flip_h = true #flips the baby
-		facing_right = false
+		facing_right=false
+	elif Input.is_action_pressed(\"ui_left\"):
+		$Sprite2D.flip_h = false #flips the baby
+		facing_right = true
 
 func takeDamage(damage: float) -> void:
 	if canDamaged:
@@ -114,6 +114,21 @@ func attack() -> void:
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]
 size = Vector2(125, 125)
 
+[sub_resource type="Animation" id="Animation_5l7pb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_dawib")]
+}
+
 [sub_resource type="Animation" id="Animation_32e85"]
 resource_name = "punch"
 length = 0.4
@@ -128,21 +143,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [ExtResource("1_dawib"), ExtResource("3_ea4ec"), ExtResource("4_06qf3"), ExtResource("3_ea4ec"), ExtResource("1_dawib")]
-}
-
-[sub_resource type="Animation" id="Animation_5l7pb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:texture")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [ExtResource("1_dawib")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ea4ec"]
