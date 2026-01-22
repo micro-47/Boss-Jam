@@ -1,71 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ipefcpx05vtq"]
+[gd_scene load_steps=4 format=3 uid="uid://ipefcpx05vtq"]
 
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="1_eppil"]
 [ext_resource type="Script" uid="uid://cl26w573h8352" path="res://Objects/Player/character_body_2d.gd" id="1_t11jd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s2am3"]
 size = Vector2(125, 125)
-
-[sub_resource type="Animation" id="Animation_1lkyc"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("testTentacle/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("testTentacle/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_p1a7s"]
-resource_name = "tentacle"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("testTentacle/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(-260, -202), Vector2(0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("testTentacle/Sprite2D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, 5.4454274, 0.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_jv0wg"]
-_data = {
-&"RESET": SubResource("Animation_1lkyc"),
-&"tentacle": SubResource("Animation_p1a7s")
-}
 
 [node name="TestEnemy" type="Node2D"]
 
@@ -78,15 +17,3 @@ texture = ExtResource("1_eppil")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_s2am3")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
-libraries = {
-&"": SubResource("AnimationLibrary_jv0wg")
-}
-
-[node name="testTentacle" type="Node2D" parent="CharacterBody2D"]
-position = Vector2(0, 200)
-
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/testTentacle"]
-scale = Vector2(0.1, 1)
-texture = ExtResource("1_eppil")

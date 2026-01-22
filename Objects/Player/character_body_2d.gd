@@ -1,7 +1,8 @@
 extends CharacterBody2D
 @onready var _healthBar = get_tree().get_nodes_in_group("PlayerHurtBox")[0].get_node("BossHealthBar") #NOTE: high chance of breaking: will break if more nodes are added to playerhurtbox group
 var ATTACKS: Array[Callable] = [Callable(self, "spawn"), Callable(self, "tentacle")]
-@onready var AniPlayer = $AnimationPlayer
+var tentacleInstance: PackedScene = load("res://Objects/Tentacle/Tentacle.tscn")
+var minibotInstance: PackedScene = load("res://Objects/MiniBot.tscn")
 
 func _ready() -> void:
 	pass
@@ -21,7 +22,10 @@ func attack() -> void:
 
 func spawn() -> void:
 	print ("spawn called")
+	var test:Node = minibotInstance.instantiate()
+	add_child(test)
 	
 func tentacle() -> void:
 	print ("tentacle called")
-	AniPlayer.play("tentacle")
+	var test:Node = tentacleInstance.instantiate()
+	add_child(test)

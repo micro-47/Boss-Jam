@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 		scale.x = -1
 
 func takeDamage(damage: float) -> void:
-	pass
+	print(\"Damage is %s\", damage)
 
 func weaponArm() -> void: #arm (short range, fastest)
 	speed = 500.0
