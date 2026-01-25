@@ -29,6 +29,7 @@ EnemyHurtBox=""
 PlayerHurtBox=""
 EnemyHitBox=""
 PlayerHitBox=""
+Canvas=""
 
 [input]
 

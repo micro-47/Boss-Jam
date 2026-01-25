@@ -8,6 +8,7 @@ radius = 49.0
 height = 150.5
 
 [node name="TestEnemy" type="Node2D"]
+scale = Vector2(2, 2)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["EnemyHurtBox"]]
 script = ExtResource("1_t11jd")

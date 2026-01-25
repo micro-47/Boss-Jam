@@ -1,9 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://bapdrhputjjg8"]
+[gd_scene load_steps=14 format=3 uid="uid://bapdrhputjjg8"]
 
 [ext_resource type="Texture2D" uid="uid://bnte8vllkccfi" path="res://Assets/drawn/idle.png" id="2_ea4ec"]
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="2_g7d7e"]
 [ext_resource type="Texture2D" uid="uid://dnxkgeqy18duq" path="res://Assets/drawn/punch1.png" id="3_06qf3"]
 [ext_resource type="Texture2D" uid="uid://6d73gmbqqnfn" path="res://Assets/drawn/punch2.png" id="4_5l7pb"]
+[ext_resource type="Texture2D" uid="uid://dvl287cru6q0a" path="res://Assets/drawn/hover_part2.png" id="5_06qf3"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
 resource_name = "TestPlayer"
@@ -15,6 +16,7 @@ script/source = "extends CharacterBody2D
 var facing_right := true  # assume starting facing right FOR THE FACING THING IGNORE
 @onready var damageCooldown = $DamageCooldown
 var canDamaged = true
+@onready var animationPlayer = $Hitbox/AnimationPlayer
 
 func _ready() -> void:
 	pass
@@ -33,10 +35,13 @@ func _physics_process(delta: float) -> void:
 	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
 	if direction:
 		velocity.x = direction * speed
+		animationPlayer.play(\"hover\")
 	else:
 		velocity.x = move_toward(velocity.x, 0, speed)
+		animationPlayer.play(\"RESET\")
 	
 	move_and_slide()
+	
 	
 	#flipping the character when moving one way
 	if Input.is_action_pressed(\"ui_right\"):
@@ -148,18 +153,36 @@ tracks/0/keys = {
 "values": [ExtResource("2_ea4ec"), ExtResource("3_06qf3"), ExtResource("4_5l7pb"), ExtResource("3_06qf3"), ExtResource("2_ea4ec")]
 }
 
+[sub_resource type="Animation" id="Animation_kj2yl"]
+resource_name = "hover"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("5_06qf3")]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ea4ec"]
 _data = {
 &"RESET": SubResource("Animation_5l7pb"),
+&"hover": SubResource("Animation_kj2yl"),
 &"punch": SubResource("Animation_32e85")
 }
 
 [node name="TestPlayer" type="Node2D"]
+scale = Vector2(1.5, 1.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+offset = Vector2(0, -1000)
 rotation_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
@@ -190,7 +213,7 @@ libraries = {
 
 [node name="DamageCooldown" type="Timer" parent="CharacterBody2D"]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." groups=["Canvas"]]
 scale = Vector2(10, 10)
 transform = Transform2D(10, 0, 0, 10, 0, 0)
 
