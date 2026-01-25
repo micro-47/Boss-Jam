@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://bapdrhputjjg8"]
 
-[ext_resource type="Texture2D" uid="uid://b4cni2go6c4e6" path="res://Assets/Animation/618129771_1506481350429325_5218705656021625225_n.png" id="1_dawib"]
+[ext_resource type="Texture2D" uid="uid://bnte8vllkccfi" path="res://Assets/drawn/idle.png" id="2_ea4ec"]
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="2_g7d7e"]
-[ext_resource type="Texture2D" uid="uid://dixhx6emffp02" path="res://Assets/Animation/619512913_4389400557967277_5756769429655172627_n.png" id="3_ea4ec"]
-[ext_resource type="Texture2D" uid="uid://ccfvdaca83h1u" path="res://Assets/Animation/617507898_1218079943805566_7168950650261585613_n.png" id="4_06qf3"]
+[ext_resource type="Texture2D" uid="uid://dnxkgeqy18duq" path="res://Assets/drawn/punch1.png" id="3_06qf3"]
+[ext_resource type="Texture2D" uid="uid://6d73gmbqqnfn" path="res://Assets/drawn/punch2.png" id="4_5l7pb"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
 resource_name = "TestPlayer"
@@ -129,7 +129,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [ExtResource("1_dawib")]
+"values": [ExtResource("2_ea4ec")]
 }
 
 [sub_resource type="Animation" id="Animation_32e85"]
@@ -145,7 +145,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
-"values": [ExtResource("1_dawib"), ExtResource("3_ea4ec"), ExtResource("4_06qf3"), ExtResource("3_ea4ec"), ExtResource("1_dawib")]
+"values": [ExtResource("2_ea4ec"), ExtResource("3_06qf3"), ExtResource("4_5l7pb"), ExtResource("3_06qf3"), ExtResource("2_ea4ec")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ea4ec"]
@@ -156,9 +156,8 @@ _data = {
 
 [node name="TestPlayer" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
-_healthBar = NodePath("")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 rotation_smoothing_enabled = true
@@ -167,8 +166,8 @@ rotation_smoothing_enabled = true
 shape = SubResource("CapsuleShape2D_ea4ec")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
-scale = Vector2(0.25, 0.25)
-texture = ExtResource("1_dawib")
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_ea4ec")
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
 position = Vector2(84, 7)

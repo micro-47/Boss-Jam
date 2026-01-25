@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ipefcpx05vtq"]
 
 [ext_resource type="Script" uid="uid://cl26w573h8352" path="res://Objects/Player/character_body_2d.gd" id="1_t11jd"]
-[ext_resource type="Texture2D" uid="uid://b3ob4d1bdgf5k" path="res://Assets/Boss.png" id="2_p1a7s"]
+[ext_resource type="Texture2D" uid="uid://w753rhetjgrg" path="res://Assets/drawn/villian.png" id="2_p1a7s"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1a7s"]
 radius = 49.0
@@ -15,7 +15,7 @@ script = ExtResource("1_t11jd")
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 modulate = Color(0.9372451, 0, 0.13671866, 1)
 position = Vector2(0, -6.000001)
-scale = Vector2(0.09, 0.09)
+scale = Vector2(-0.15, 0.15)
 texture = ExtResource("2_p1a7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
