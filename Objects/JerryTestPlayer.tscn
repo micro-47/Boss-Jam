@@ -155,7 +155,7 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
-_healthBar = NodePath("PlayerHealthBar")
+_healthBar = NodePath("Control/PlayerHealthBar")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 rotation_smoothing_enabled = true
@@ -186,20 +186,30 @@ libraries = {
 &"": SubResource("AnimationLibrary_ea4ec")
 }
 
-[node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D"]
+[node name="DamageCooldown" type="Timer" parent="CharacterBody2D"]
+
+[node name="Control" type="Control" parent="CharacterBody2D"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D/Control"]
+layout_mode = 0
 offset_left = 327.0
 offset_top = -317.0
 offset_right = 567.0
 offset_bottom = -290.0
 value = 100.0
 
-[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D"]
+[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D/Control"]
+layout_mode = 0
 offset_left = -560.0
 offset_top = -315.0
 offset_right = -320.0
 offset_bottom = -288.0
 value = 100.0
-
-[node name="DamageCooldown" type="Timer" parent="CharacterBody2D"]
 
 [connection signal="timeout" from="CharacterBody2D/DamageCooldown" to="CharacterBody2D" method="_on_damage_cooldown_timeout"]

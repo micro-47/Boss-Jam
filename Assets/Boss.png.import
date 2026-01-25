@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dogj3xu1rycs1"
-path="res://.godot/imported/blanksquare.jpg-e8985ee3bcc1aa24cb7c3c9dab76fca6.ctex"
+uid="uid://b3ob4d1bdgf5k"
+path="res://.godot/imported/Boss.png-ae21eafc19e2f142cabd440bb8fd4cbc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/blanksquare.jpg"
-dest_files=["res://.godot/imported/blanksquare.jpg-e8985ee3bcc1aa24cb7c3c9dab76fca6.ctex"]
+source_file="res://Assets/Boss.png"
+dest_files=["res://.godot/imported/Boss.png-ae21eafc19e2f142cabd440bb8fd4cbc.ctex"]
 
 [params]
 

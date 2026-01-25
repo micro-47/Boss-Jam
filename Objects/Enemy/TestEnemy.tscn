@@ -1,10 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://ipefcpx05vtq"]
 
-[ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="1_eppil"]
 [ext_resource type="Script" uid="uid://cl26w573h8352" path="res://Objects/Player/character_body_2d.gd" id="1_t11jd"]
+[ext_resource type="Texture2D" uid="uid://b3ob4d1bdgf5k" path="res://Assets/Boss.png" id="2_p1a7s"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2am3"]
-size = Vector2(125, 125)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p1a7s"]
+radius = 49.0
+height = 150.5
 
 [node name="TestEnemy" type="Node2D"]
 
@@ -13,7 +14,10 @@ script = ExtResource("1_t11jd")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 modulate = Color(0.9372451, 0, 0.13671866, 1)
-texture = ExtResource("1_eppil")
+position = Vector2(0, -6.000001)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("2_p1a7s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_s2am3")
+position = Vector2(4, -6.25)
+shape = SubResource("CapsuleShape2D_p1a7s")
