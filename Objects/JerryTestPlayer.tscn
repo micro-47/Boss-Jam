@@ -53,6 +53,7 @@ func _physics_process(delta: float) -> void:
 
 func takeDamage(damage: float) -> void:
 	if canDamaged:
+		_healthBar.value -= damage
 		print(\"Damage is %s\", damage)
 		canDamaged=false
 		damageCooldown.start(1) #How many seconds it can't take damage for 
@@ -120,7 +121,7 @@ func attack() -> void:
 "
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4am36"]
-size = Vector2(125, 125)
+size = Vector2(125, 80.31308)
 
 [sub_resource type="Animation" id="Animation_5l7pb"]
 length = 0.001
@@ -178,8 +179,9 @@ _data = {
 [node name="TestPlayer" type="Node2D"]
 scale = Vector2(1.5, 1.5)
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHurtBox"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
+_healthBar = NodePath("../CanvasLayer/Control/PlayerHealthBar")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 offset = Vector2(0, -1000)
@@ -193,8 +195,8 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_ea4ec")
 
 [node name="Hitbox" type="Area2D" parent="CharacterBody2D" groups=["PlayerHitBox"]]
-position = Vector2(84, 7)
-rotation = 0.71733
+position = Vector2(-10, -25)
+rotation = 1.5550884
 scale = Vector2(0.2, 1)
 script = SubResource("GDScript_4am36")
 
@@ -203,6 +205,7 @@ visible = false
 texture = ExtResource("2_g7d7e")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Hitbox"]
+scale = Vector2(1, 0.99999994)
 shape = SubResource("RectangleShape2D_4am36")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D/Hitbox"]

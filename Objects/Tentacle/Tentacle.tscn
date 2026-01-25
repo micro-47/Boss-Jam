@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cgqggnu8vsh4d"]
+[gd_scene load_steps=8 format=3 uid="uid://cgqggnu8vsh4d"]
 
 [ext_resource type="Script" uid="uid://cpfoovkrpkqve" path="res://Objects/Tentacle/hitbox.gd" id="1_r04xp"]
 [ext_resource type="Texture2D" uid="uid://ckwxjse40eppo" path="res://Assets/drawn/bulletfly1.png" id="2_x0ode"]
+[ext_resource type="Texture2D" uid="uid://cdb37373o6bxj" path="res://Assets/drawn/bulletfly2.png" id="3_u1l5w"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r04xp"]
 size = Vector2(19, 3)
@@ -23,19 +24,19 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TentacleHitbox:rotation")
+tracks/1/path = NodePath("TentacleHitbox/Bulletfly1:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [ExtResource("2_x0ode")]
 }
 
 [sub_resource type="Animation" id="Animation_p1a7s"]
 resource_name = "tentacle"
-length = 2.0
+length = 5.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -43,22 +44,22 @@ tracks/0/path = NodePath("TentacleHitbox:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 0), Vector2(-100, 0), Vector2(0, 0)]
+"values": [Vector2(0, 0), Vector2(-2000, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("TentacleHitbox:rotation")
+tracks/1/path = NodePath("TentacleHitbox/Bulletfly1:texture")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 1, 2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [0.0, -4.021239, 0.0]
+"times": PackedFloat32Array(0, 0.125),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [ExtResource("2_x0ode"), ExtResource("3_u1l5w")]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jv0wg"]
@@ -70,10 +71,11 @@ _data = {
 [node name="Tentacle" type="Node2D"]
 
 [node name="TentacleHitbox" type="Area2D" parent="." groups=["EnemyHitBox"]]
+scale = Vector2(3, 3)
 script = ExtResource("1_r04xp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TentacleHitbox"]
-position = Vector2(-3.5, -0.5)
+position = Vector2(3.5, -0.5)
 shape = SubResource("RectangleShape2D_r04xp")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TentacleHitbox"]
@@ -83,5 +85,5 @@ libraries = {
 }
 
 [node name="Bulletfly1" type="Sprite2D" parent="TentacleHitbox"]
-scale = Vector2(0.03, 0.03)
+scale = Vector2(-0.03, 0.03)
 texture = ExtResource("2_x0ode")
