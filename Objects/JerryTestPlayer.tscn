@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="2_g7d7e"]
 [ext_resource type="Texture2D" uid="uid://dnxkgeqy18duq" path="res://Assets/drawn/punch1.png" id="3_06qf3"]
 [ext_resource type="Texture2D" uid="uid://6d73gmbqqnfn" path="res://Assets/drawn/punch2.png" id="4_5l7pb"]
-[ext_resource type="Texture2D" uid="uid://bvqijro7e3r7k" path="res://Assets/drawn/hover.png" id="5_06qf3"]
+[ext_resource type="Texture2D" uid="uid://dvl287cru6q0a" path="res://Assets/drawn/hover_part2.png" id="5_06qf3"]
 
 [sub_resource type="GDScript" id="GDScript_2wo74"]
 resource_name = "TestPlayer"
@@ -176,11 +176,13 @@ _data = {
 }
 
 [node name="TestPlayer" type="Node2D"]
+scale = Vector2(1.5, 1.5)
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+offset = Vector2(0, -1000)
 rotation_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
