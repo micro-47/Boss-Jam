@@ -10,8 +10,8 @@ resource_name = "TestPlayer"
 script/source = "extends CharacterBody2D
 
 @export var _healthBar: Node
-@export var speed = 300.0
-@export var jumpVelocity = -400.0
+@export var speed = 3000.0
+@export var jumpVelocity = -4000.0
 var facing_right := true  # assume starting facing right FOR THE FACING THING IGNORE
 @onready var damageCooldown = $DamageCooldown
 var canDamaged = true
@@ -22,7 +22,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor():
-		velocity += get_gravity() * delta
+		velocity += get_gravity() * 10 * delta
 
 	# Handle jump.
 	if Input.is_action_just_pressed(\"ui_up\") and is_on_floor():
@@ -155,7 +155,7 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
-_healthBar = NodePath("Control/PlayerHealthBar")
+_healthBar = NodePath("")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 rotation_smoothing_enabled = true
@@ -188,28 +188,34 @@ libraries = {
 
 [node name="DamageCooldown" type="Timer" parent="CharacterBody2D"]
 
-[node name="Control" type="Control" parent="CharacterBody2D"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(10, 10)
+transform = Transform2D(10, 0, 0, 10, 0, 0)
 
-[node name="BossHealthBar" type="ProgressBar" parent="CharacterBody2D/Control"]
-layout_mode = 0
-offset_left = 327.0
-offset_top = -317.0
-offset_right = 567.0
-offset_bottom = -290.0
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="BossHealthBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -252.0
+offset_top = 10.0
+offset_right = -12.0
+offset_bottom = 37.0
+grow_horizontal = 0
 value = 100.0
 
-[node name="PlayerHealthBar" type="ProgressBar" parent="CharacterBody2D/Control"]
-layout_mode = 0
-offset_left = -560.0
-offset_top = -315.0
-offset_right = -320.0
-offset_bottom = -288.0
+[node name="PlayerHealthBar" type="ProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 10.0
+offset_right = 252.0
+offset_bottom = 37.0
 value = 100.0
 
 [connection signal="timeout" from="CharacterBody2D/DamageCooldown" to="CharacterBody2D" method="_on_damage_cooldown_timeout"]

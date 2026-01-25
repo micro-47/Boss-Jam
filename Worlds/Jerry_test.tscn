@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bapdrhputjjg8" path="res://Objects/JerryTestPlayer.tscn" id="3_npk3l"]
 
 [node name="JerryTest" type="Node2D"]
+scale = Vector2(10, 10)
 
 [node name="TestEnemy" parent="." instance=ExtResource("1_npk3l")]
 position = Vector2(105, 85)
