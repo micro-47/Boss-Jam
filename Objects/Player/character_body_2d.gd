@@ -1,5 +1,5 @@
 extends CharacterBody2D
-@onready var _healthBar = get_tree().get_nodes_in_group("PlayerHurtBox")[0].get_node("CanvasLayer/Control/BossHealthBar") #NOTE: high chance of breaking: will break if more nodes are added to playerhurtbox group
+@onready var _healthBar = get_tree().get_nodes_in_group("Canvas")[0].get_node("Control/BossHealthBar") #NOTE: high chance of breaking: will break if more nodes are added to playerhurtbox group
 var ATTACKS: Array[Callable] = [Callable(self, "spawn"), Callable(self, "tentacle")]
 var tentacleInstance: PackedScene = load("res://Objects/Tentacle/Tentacle.tscn")
 var minibotInstance: PackedScene = load("res://Objects/MiniBot.tscn")
