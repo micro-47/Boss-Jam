@@ -111,9 +111,8 @@ size = Vector2(125, 125)
 
 [node name="TestPlayer" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_healthBar") groups=["PlayerHurtBox"]]
+[node name="CharacterBody2D" type="CharacterBody2D" parent="." groups=["PlayerHurtBox"]]
 script = SubResource("GDScript_2wo74")
-_healthBar = NodePath("")
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 rotation_smoothing_enabled = true

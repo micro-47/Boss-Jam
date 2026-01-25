@@ -67,13 +67,16 @@ func weaponPicoGun() -> void: #gun (long range, medium speed)
 	$Hitbox.damage = 50
 	#print(\"PicoGun Weapon Enabled\")
 
+func shield() -> void:
+	pass
 
 func _on_damage_cooldown_timeout() -> void:
 	canDamaged=true
 "
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_pgrwc"]
-size = Vector2(125, 125)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ea4ec"]
+radius = 26.0
+height = 120.0
 
 [sub_resource type="GDScript" id="GDScript_4am36"]
 script/source = "extends Area2D
@@ -161,7 +164,7 @@ _healthBar = NodePath("")
 rotation_smoothing_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-shape = SubResource("RectangleShape2D_pgrwc")
+shape = SubResource("CapsuleShape2D_ea4ec")
 
 [node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
 scale = Vector2(0.25, 0.25)
