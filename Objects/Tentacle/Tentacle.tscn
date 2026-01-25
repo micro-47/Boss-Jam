@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://cgqggnu8vsh4d"]
 
 [ext_resource type="Script" uid="uid://cpfoovkrpkqve" path="res://Objects/Tentacle/hitbox.gd" id="1_r04xp"]
-[ext_resource type="Texture2D" uid="uid://cccrer6w2wt0o" path="res://Assets/icon.svg" id="1_w5gtr"]
+[ext_resource type="Texture2D" uid="uid://ckwxjse40eppo" path="res://Assets/drawn/bulletfly1.png" id="2_x0ode"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r04xp"]
-size = Vector2(12, 20)
+size = Vector2(19, 3)
 
 [sub_resource type="Animation" id="Animation_1lkyc"]
 length = 0.001
@@ -73,14 +73,15 @@ _data = {
 script = ExtResource("1_r04xp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TentacleHitbox"]
+position = Vector2(-3.5, -0.5)
 shape = SubResource("RectangleShape2D_r04xp")
-
-[node name="Sprite2D" type="Sprite2D" parent="TentacleHitbox"]
-scale = Vector2(0.1, 1)
-texture = ExtResource("1_w5gtr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TentacleHitbox"]
 root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_jv0wg")
 }
+
+[node name="Bulletfly1" type="Sprite2D" parent="TentacleHitbox"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_x0ode")
